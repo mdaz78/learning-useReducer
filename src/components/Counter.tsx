@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import { useReducer } from "react";
 
 interface State {
@@ -21,24 +22,25 @@ const actions = {
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actions.INCREMENT:
-      return { ...state, count: state.count + 1 };
+      state.count += 1;
+      return;
     case actions.DECREMENT:
-      return { ...state, count: state.count - 1 };
+      state.count -= 1;
+      return;
     case actions.SET_VALUE_TO_ADD:
-      return { ...state, valueToAdd: action.payload };
+      state.valueToAdd = action.payload;
+      return;
     case actions.ADD_VALUE:
-      return {
-        ...state,
-        count: state.count + state.valueToAdd,
-        valueToAdd: 0,
-      };
+      state.count += state.valueToAdd;
+      state.valueToAdd = 0;
+      return;
     default:
-      return state;
+      return;
   }
 };
 
 const Counter = ({ initialCount }: { initialCount: number }) => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(produce(reducer), {
     count: initialCount,
     valueToAdd: 0,
   });
