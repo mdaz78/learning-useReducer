@@ -1,5 +1,11 @@
+import Counter from "./components/Counter";
+
 function App() {
-  return <></>;
+  return (
+    <div>
+      <Counter initialCount={100} />
+    </div>
+  );
 }
 
 export default App;
