@@ -20,6 +20,7 @@ const Counter = ({ initialCount }: { initialCount: number }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCount(count + valueToAdd);
+    setValueToAdd(0);
   };
 
   return (
